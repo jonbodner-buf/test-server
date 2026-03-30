@@ -1,0 +1,13 @@
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+version: v2
+use_git_branch_as_label:
+  - buf.build/jonbodner-buf/test-server
+modules:
+  - path: proto
+    name: buf.build/jonbodner-buf/test-server
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE
