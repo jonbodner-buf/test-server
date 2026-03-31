@@ -2,5 +2,5 @@
 version: v2
 deps:
   - name: buf.build/jonbodner-buf/common
-    commit: bc37b1e26c5b4fdc94d570244da73d3c
+    commit: b1f7422eba6340f98f2b627b8d1c8fbe
     digest: b5:cf139d81850577176e1ff22b23c6a985c06ad580a48d68a4ba8c0a99a92988511e71ee81179a693e872302f84cc80b71a7226ae56ac478adfe9b5f8a88cd8a5b
