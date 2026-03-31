@@ -36,11 +36,14 @@ const (
 	// GreetServiceGreetPersonProcedure is the fully-qualified name of the GreetService's GreetPerson
 	// RPC.
 	GreetServiceGreetPersonProcedure = "/greet.v1.GreetService/GreetPerson"
+	// GreetServiceGreetPetProcedure is the fully-qualified name of the GreetService's GreetPet RPC.
+	GreetServiceGreetPetProcedure = "/greet.v1.GreetService/GreetPet"
 )
 
 // GreetServiceClient is a client for the greet.v1.GreetService service.
 type GreetServiceClient interface {
 	GreetPerson(context.Context, *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error)
+	GreetPet(context.Context, *v1.GreetPetRequest) (*v1.GreetPetResponse, error)
 }
 
 // NewGreetServiceClient constructs a client for the greet.v1.GreetService service. By default, it
@@ -60,12 +63,19 @@ func NewGreetServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			connect.WithSchema(greetServiceMethods.ByName("GreetPerson")),
 			connect.WithClientOptions(opts...),
 		),
+		greetPet: connect.NewClient[v1.GreetPetRequest, v1.GreetPetResponse](
+			httpClient,
+			baseURL+GreetServiceGreetPetProcedure,
+			connect.WithSchema(greetServiceMethods.ByName("GreetPet")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // greetServiceClient implements GreetServiceClient.
 type greetServiceClient struct {
 	greetPerson *connect.Client[v1.GreetPersonRequest, v1.GreetPersonResponse]
+	greetPet    *connect.Client[v1.GreetPetRequest, v1.GreetPetResponse]
 }
 
 // GreetPerson calls greet.v1.GreetService.GreetPerson.
@@ -77,9 +87,19 @@ func (c *greetServiceClient) GreetPerson(ctx context.Context, req *v1.GreetPerso
 	return nil, err
 }
 
+// GreetPet calls greet.v1.GreetService.GreetPet.
+func (c *greetServiceClient) GreetPet(ctx context.Context, req *v1.GreetPetRequest) (*v1.GreetPetResponse, error) {
+	response, err := c.greetPet.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // GreetServiceHandler is an implementation of the greet.v1.GreetService service.
 type GreetServiceHandler interface {
 	GreetPerson(context.Context, *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error)
+	GreetPet(context.Context, *v1.GreetPetRequest) (*v1.GreetPetResponse, error)
 }
 
 // NewGreetServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -95,10 +115,18 @@ func NewGreetServiceHandler(svc GreetServiceHandler, opts ...connect.HandlerOpti
 		connect.WithSchema(greetServiceMethods.ByName("GreetPerson")),
 		connect.WithHandlerOptions(opts...),
 	)
+	greetServiceGreetPetHandler := connect.NewUnaryHandlerSimple(
+		GreetServiceGreetPetProcedure,
+		svc.GreetPet,
+		connect.WithSchema(greetServiceMethods.ByName("GreetPet")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/greet.v1.GreetService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case GreetServiceGreetPersonProcedure:
 			greetServiceGreetPersonHandler.ServeHTTP(w, r)
+		case GreetServiceGreetPetProcedure:
+			greetServiceGreetPetHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -110,4 +138,8 @@ type UnimplementedGreetServiceHandler struct{}
 
 func (UnimplementedGreetServiceHandler) GreetPerson(context.Context, *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("greet.v1.GreetService.GreetPerson is not implemented"))
+}
+
+func (UnimplementedGreetServiceHandler) GreetPet(context.Context, *v1.GreetPetRequest) (*v1.GreetPetResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("greet.v1.GreetService.GreetPet is not implemented"))
 }

@@ -25,6 +25,7 @@ type Person struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Age           int32                  `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
+	Pet           string                 `protobuf:"bytes,3,opt,name=pet,proto3" json:"pet,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -73,14 +74,22 @@ func (x *Person) GetAge() int32 {
 	return 0
 }
 
+func (x *Person) GetPet() string {
+	if x != nil {
+		return x.Pet
+	}
+	return ""
+}
+
 var File_person_v1_person_proto protoreflect.FileDescriptor
 
 const file_person_v1_person_proto_rawDesc = "" +
 	"\n" +
-	"\x16person/v1/person.proto\x12\tperson.v1\".\n" +
+	"\x16person/v1/person.proto\x12\tperson.v1\"@\n" +
 	"\x06Person\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
-	"\x03age\x18\x02 \x01(\x05R\x03ageB\x9e\x01\n" +
+	"\x03age\x18\x02 \x01(\x05R\x03age\x12\x10\n" +
+	"\x03pet\x18\x03 \x01(\tR\x03petB\x9e\x01\n" +
 	"\rcom.person.v1B\vPersonProtoP\x01Z;github.com/jonbodner-buf/test-server/gen/person/v1;personv1\xa2\x02\x03PXX\xaa\x02\tPerson.V1\xca\x02\tPerson\\V1\xe2\x02\x15Person\\V1\\GPBMetadata\xea\x02\n" +
 	"Person::V1b\x06proto3"
 

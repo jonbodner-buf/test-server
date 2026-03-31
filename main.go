@@ -30,3 +30,7 @@ type GreetServiceHandler struct{}
 func (*GreetServiceHandler) GreetPerson(ctx context.Context, req *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error) {
 	return &v1.GreetPersonResponse{Message: fmt.Sprintf("Hello, %s, you are %d!", req.Person.Name, req.Person.Age)}, nil
 }
+
+func (*GreetServiceHandler) GreetPet(ctx context.Context, req *v1.GreetPetRequest) (*v1.GreetPetResponse, error) {
+	return &v1.GreetPetResponse{Message: fmt.Sprintf("Hello, %s, I'd like to pet %s!", req.Person.Name, req.Person.Pet)}, nil
+}
