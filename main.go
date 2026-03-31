@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"net/http"
 
-	v1 "github.com/jonbodner-buf/test-server/gen/person/v1"
-	"github.com/jonbodner-buf/test-server/gen/person/v1/personv1connect"
+	v1 "github.com/jonbodner-buf/test-server/gen/greet/v1"
+	"github.com/jonbodner-buf/test-server/gen/greet/v1/greetv1connect"
 )
 
 func main() {
-	path, handler := personv1connect.NewPersonServiceHandler(&PersonServiceHandler{})
+	path, handler := greetv1connect.NewGreetServiceHandler(&GreetServiceHandler{})
 	mux := http.NewServeMux()
 	mux.Handle(path, handler)
 
@@ -25,8 +25,8 @@ func main() {
 	h.ListenAndServe()
 }
 
-type PersonServiceHandler struct{}
+type GreetServiceHandler struct{}
 
-func (*PersonServiceHandler) GreetPerson(ctx context.Context, req *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error) {
-	return &v1.GreetPersonResponse{Message: fmt.Sprintf("Hello, %s, you look great for %d!", req.Name, req.Age)}, nil
+func (*GreetServiceHandler) GreetPerson(ctx context.Context, req *v1.GreetPersonRequest) (*v1.GreetPersonResponse, error) {
+	return &v1.GreetPersonResponse{Message: fmt.Sprintf("Hello, %s, you are %d!", req.Person.Name, req.Person.Age)}, nil
 }

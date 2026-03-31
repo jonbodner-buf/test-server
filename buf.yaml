@@ -2,6 +2,7 @@
 version: v2
 use_git_branch_as_label:
   - buf.build/jonbodner-buf/test-server
+  - buf.build/jonbodner-buf/common
 modules:
   - path: proto
     name: buf.build/jonbodner-buf/test-server
@@ -11,3 +12,5 @@ lint:
 breaking:
   use:
     - FILE
+deps:
+  - buf.build/jonbodner-buf/common

@@ -21,7 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type GreetPersonRequest struct {
+type Person struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Age           int32                  `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
@@ -29,20 +29,20 @@ type GreetPersonRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GreetPersonRequest) Reset() {
-	*x = GreetPersonRequest{}
+func (x *Person) Reset() {
+	*x = Person{}
 	mi := &file_person_v1_person_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GreetPersonRequest) String() string {
+func (x *Person) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GreetPersonRequest) ProtoMessage() {}
+func (*Person) ProtoMessage() {}
 
-func (x *GreetPersonRequest) ProtoReflect() protoreflect.Message {
+func (x *Person) ProtoReflect() protoreflect.Message {
 	mi := &file_person_v1_person_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -54,81 +54,33 @@ func (x *GreetPersonRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GreetPersonRequest.ProtoReflect.Descriptor instead.
-func (*GreetPersonRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Person.ProtoReflect.Descriptor instead.
+func (*Person) Descriptor() ([]byte, []int) {
 	return file_person_v1_person_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GreetPersonRequest) GetName() string {
+func (x *Person) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *GreetPersonRequest) GetAge() int32 {
+func (x *Person) GetAge() int32 {
 	if x != nil {
 		return x.Age
 	}
 	return 0
 }
 
-type GreetPersonResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GreetPersonResponse) Reset() {
-	*x = GreetPersonResponse{}
-	mi := &file_person_v1_person_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GreetPersonResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GreetPersonResponse) ProtoMessage() {}
-
-func (x *GreetPersonResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_person_v1_person_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GreetPersonResponse.ProtoReflect.Descriptor instead.
-func (*GreetPersonResponse) Descriptor() ([]byte, []int) {
-	return file_person_v1_person_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *GreetPersonResponse) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
-
 var File_person_v1_person_proto protoreflect.FileDescriptor
 
 const file_person_v1_person_proto_rawDesc = "" +
 	"\n" +
-	"\x16person/v1/person.proto\x12\tperson.v1\":\n" +
-	"\x12GreetPersonRequest\x12\x12\n" +
+	"\x16person/v1/person.proto\x12\tperson.v1\".\n" +
+	"\x06Person\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
-	"\x03age\x18\x02 \x01(\x05R\x03age\"/\n" +
-	"\x13GreetPersonResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2_\n" +
-	"\rPersonService\x12N\n" +
-	"\vGreetPerson\x12\x1d.person.v1.GreetPersonRequest\x1a\x1e.person.v1.GreetPersonResponse\"\x00B\x9e\x01\n" +
+	"\x03age\x18\x02 \x01(\x05R\x03ageB\x9e\x01\n" +
 	"\rcom.person.v1B\vPersonProtoP\x01Z;github.com/jonbodner-buf/test-server/gen/person/v1;personv1\xa2\x02\x03PXX\xaa\x02\tPerson.V1\xca\x02\tPerson\\V1\xe2\x02\x15Person\\V1\\GPBMetadata\xea\x02\n" +
 	"Person::V1b\x06proto3"
 
@@ -144,16 +96,13 @@ func file_person_v1_person_proto_rawDescGZIP() []byte {
 	return file_person_v1_person_proto_rawDescData
 }
 
-var file_person_v1_person_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_person_v1_person_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_person_v1_person_proto_goTypes = []any{
-	(*GreetPersonRequest)(nil),  // 0: person.v1.GreetPersonRequest
-	(*GreetPersonResponse)(nil), // 1: person.v1.GreetPersonResponse
+	(*Person)(nil), // 0: person.v1.Person
 }
 var file_person_v1_person_proto_depIdxs = []int32{
-	0, // 0: person.v1.PersonService.GreetPerson:input_type -> person.v1.GreetPersonRequest
-	1, // 1: person.v1.PersonService.GreetPerson:output_type -> person.v1.GreetPersonResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -170,9 +119,9 @@ func file_person_v1_person_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_person_v1_person_proto_rawDesc), len(file_person_v1_person_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   1,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
 		GoTypes:           file_person_v1_person_proto_goTypes,
 		DependencyIndexes: file_person_v1_person_proto_depIdxs,

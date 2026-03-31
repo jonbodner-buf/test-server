@@ -1,16 +1,17 @@
 syntax = "proto3";
 
-package person.v1;
+package greet.v1;
+
+import "person/v1/person.proto";
 
 message GreetPersonRequest {
-  string name = 1;
-  int32 age = 2;
+  person.v1.Person person = 1;
 }
 
 message GreetPersonResponse {
   string message = 1;
 }
 
-service PersonService {
+service GreetService {
   rpc GreetPerson(GreetPersonRequest) returns (GreetPersonResponse) {}
 }
