@@ -12,6 +12,15 @@ message GreetPersonResponse {
   string message = 1;
 }
 
+message GreetPetRequest {
+  person.v1.Person person = 1;
+}
+
+message GreetPetResponse {
+  string message = 1;
+}
+
 service GreetService {
   rpc GreetPerson(GreetPersonRequest) returns (GreetPersonResponse) {}
+  rpc GreetPet(GreetPetRequest) returns (GreetPetResponse) {}
 }
